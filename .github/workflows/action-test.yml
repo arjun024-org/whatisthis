@@ -30,7 +30,7 @@ jobs:
         id: php-specific
         if: github.repository == 'arjun024-org/whatisthis'
         run: |
-          echo "* Bump PHP modules. See [doc] (https://github.com/cloudfoundry/buildpacks-ci/tree/readme-build-php-modules-task/scripts/php-modules#pre-buildpack-release-task)" >> "${GITHUB_OUTPUT}"
+          echo 'Bump PHP modules' >> "${GITHUB_OUTPUT}"
 
       - name: File Issue
         id: file-issue
