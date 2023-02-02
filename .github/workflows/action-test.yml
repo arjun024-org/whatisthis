@@ -26,6 +26,12 @@ jobs:
         run: |
           echo "val=x.y.z" >> "${GITHUB_OUTPUT}"
 
+      - name: PHP specific tasks
+        id: php-specific
+        if: github.repository == 'arjun024-org/whatisthis'
+        run: |
+          echo '* Bump PHP modules. See [doc] (https://github.com/cloudfoundry/buildpacks-ci/tree/readme-build-php-modules-task/scripts/php-modules#pre-buildpack-release-task)' >> "${GITHUB_OUTPUT}"
+
       - name: File Issue
         id: file-issue
         uses: paketo-buildpacks/github-config/actions/issue/file@main
@@ -36,6 +42,7 @@ jobs:
           issue_body: |
             Release reminder for ${{ github.event.repository.name }}
 
+            ${{ steps.php-specifics.outputs.tasks }}
             * See [diff from latest version]("https://github.com/${{ github.repository }}/compare/${{ steps.latest-version.outputs.val }}..develop") and validate if a release is required.
             * Make sure the latest commit on `develop` has passed tests on the [CI](https://buildpacks.ci.cf-app.com/teams/main/pipelines/${{ github.event.repository.name }})
             * Refer [release instructions](https://github.com/pivotal-cf/tanzu-buildpacks/wiki/Releasing-CF-Buildpacks). (private link)
