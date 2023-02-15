@@ -16,6 +16,6 @@ jobs:
           issue_title: "test"
           issue_body: |
             Foo
-            ```
+            &#96&#96&#96
             Bar
-            ```
+            &#96&#96&#96
