@@ -23,9 +23,9 @@ jobs:
             For nginx/nginx-static: Also remove older mainline/stable version.
             E.g. If you are adding nginx 1.22, you will remove 1.20. If you are adding 1.23, you will remove 1.21
             
-            <code>
+            ```json
             ${{ github.event.client_payload.DependencyYAML }}
-            </code>
+            ```
   
 
 
