@@ -1,59 +1,21 @@
 name: Action Test
 on:
-  schedule:
-    - cron: '45 0 1 * *'
   workflow_dispatch: {}
 
 jobs:
   reminder:
-    name: Reminder
+    name: test
     runs-on: ubuntu-22.04
     steps:
-      - name: Get Month
-        id: month
-        run: |
-          echo "month=$(date +%b)" >> "${GITHUB_OUTPUT}"
-
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.ARJUN024_PROJECT_TOKEN }}
-          ref: main
-          fetch-depth: 0
-
-      - name: Get Latest Version
-        id: latest-version
-        run: |
-          echo "val=x.y.z" >> "${GITHUB_OUTPUT}"
-
-      - name: PHP specific tasks
-        id: php-specific
-        if: github.repository == 'arjun024-org/whatisthis'
-        run: |
-          echo 'task=* Bump PHP modules. See [doc](https://github.com/cloudfoundry/buildpacks-ci/tree/readme-build-php-modules-task/scripts/php-modules#pre-buildpack-release-task)' >> "${GITHUB_OUTPUT}"
-
       - name: File Issue
         id: file-issue
         uses: paketo-buildpacks/github-config/actions/issue/file@main
         with:
           token: ${{ secrets.ARJUN024_PROJECT_TOKEN }}
           repo: ${{ github.repository }}
-          issue_title: "Release: ${{ github.event.repository.name }} (${{ steps.month.outputs.month }})"
+          issue_title: "test"
           issue_body: |
-            Release reminder for ${{ github.event.repository.name }}
-
-            ${{ steps.php-specific.outputs.task }}
-            * See [diff from latest version]("https://github.com/${{ github.repository }}/compare/${{ steps.latest-version.outputs.val }}..develop") and validate if a release is required.
-            * Make sure the latest commit on `develop` has passed tests on the [CI](https://buildpacks.ci.cf-app.com/teams/main/pipelines/${{ github.event.repository.name }})
-            * Refer [release instructions](https://github.com/pivotal-cf/tanzu-buildpacks/wiki/Releasing-CF-Buildpacks). (private link)
-
-      - name: Add issue to project
-        id: issue-to-proj
-        uses: paketo-buildpacks/github-config/actions/issue/add-to-project@main
-        with:
-          project-org: arjun024-org
-          project-num: 1
-          field-name: Workstream
-          option-name: Release Train
-          issue-node-id: ${{ steps.file-issue.outputs.node-id }}
-          token: ${{ secrets.ARJUN024_PROJECT_TOKEN }}
+            Foo
+            ```
+            Bar
+            ```
