@@ -1,0 +1,13 @@
+name: Action Test
+on:
+  workflow_dispatch: {}
+
+jobs:
+  reminder:
+    name: test
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Print Picked Version
+        run: |
+          echo "go version"
+          go version
