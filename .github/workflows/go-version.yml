@@ -1,4 +1,4 @@
-name: Action Test
+name: Go version in runner
 on:
   workflow_dispatch: {}
 
