@@ -1,4 +1,4 @@
-name: Go version in runner
+name: Go version + Umask
 on:
   workflow_dispatch: {}
 
@@ -11,3 +11,7 @@ jobs:
         run: |
           echo "go version"
           go version
+      - name: Print umask
+        run: |
+          echo "umask"
+          umask
