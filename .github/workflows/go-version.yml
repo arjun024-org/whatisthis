@@ -15,9 +15,18 @@ jobs:
         run: |
           echo "umask"
           umask
-      - name: Test skopeo
+      - name: Wait for rootfs docker image
         run: |
-          skopeo list-tags docker://cloudfoundry/cflinuxfs4 | jq -r '.Tags'
+          version="1.20.0"
+          until eval "$(
+            skopeo list-tags docker://cloudfoundry/cflinuxfs4 \
+              | jq -r \
+              --arg VERSION "${version}" \
+              '.Tags| any(. == $VERSION)')" ; do
+            echo "Waiting 30s for index.docker.io/cloudfoundry/cflinuxfs4:${version} to be available"
+            sleep 30
+          done
+          echo "image index.docker.io/cloudfoundry/cflinuxfs4:${version} is available"
       - name: Docker daemon test
         run: |
           echo "images:"
