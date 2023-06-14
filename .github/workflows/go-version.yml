@@ -1,4 +1,4 @@
-name: Go version + Umask
+name: Go version + Umask + Dock daemon
 on:
   workflow_dispatch: {}
 
@@ -15,3 +15,8 @@ jobs:
         run: |
           echo "umask"
           umask
+      - name: Docker daemon test
+        run: |
+          echo "images:"
+          docker image ls
+          
