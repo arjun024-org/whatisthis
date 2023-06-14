@@ -15,6 +15,9 @@ jobs:
         run: |
           echo "umask"
           umask
+      - name: Test skopeo
+        run: |
+          skopeo list-tags docker://cloudfoundry/cflinuxfs4 | jq -r '.Tags'
       - name: Docker daemon test
         run: |
           echo "images:"
