@@ -17,7 +17,7 @@ jobs:
           umask
       - name: Wait for rootfs docker image
         run: |
-          version="1.20.0"
+          version="1.19.0"
           until eval "$(
             skopeo list-tags docker://cloudfoundry/cflinuxfs4 \
               | jq -r \
