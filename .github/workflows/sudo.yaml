@@ -13,12 +13,14 @@ jobs:
       if: always()
       run: |
         cat /etc/docker/daemon.json
+        sudo chattr -i /etc/docker/daemon.json
         sudo chmod +w /etc/docker/daemon.json
         sudo echo hi > /etc/docker/daemon.json
     - name: resolv
       if: always()
       run: |
         cat /etc/resolv.conf
+        sudo chattr -i /etc/docker/daemon.json
         sudo chmod +w /etc/resolv.conf
         sudo echo nameserver 8.8.8.8 > /etc/resolv.conf
     - name: docker test
