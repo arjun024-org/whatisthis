@@ -1,0 +1,24 @@
+---
+name: Sudo test
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  one:
+    name: one
+    runs-on: ubuntu-22.04
+    steps:
+    - name: daemon.json
+      if: always()
+      run: |
+        cat /etc/docker/daemon.json
+        sudo echo hi > /etc/docker/daemon.json
+    - name: resolv
+      if: always()
+      run: |
+        cat /etc/resolv.conf
+        sudo echo nameserver 8.8.8.8 > /etc/resolv.conf
+    - name: docker test
+      run: |
+        docker pull paketobuildpacks/tini
